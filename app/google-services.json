@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "846068004782",
+    "firebase_url": "https://feisty-well-313809-default-rtdb.firebaseio.com",
+    "project_id": "feisty-well-313809",
+    "storage_bucket": "feisty-well-313809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846068004782:android:db8f81f6a6e46170baba3f",
+        "android_client_info": {
+          "package_name": "azmithabet.com.bloodoran"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846068004782-tkkertp4a4kseg7t1j8pkivo0vngj5fb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "azmithabet.com.bloodoran",
+            "certificate_hash": "e5dcd100b954cd3b9488debaa3dc1e9557682547"
+          }
+        },
+        {
+          "client_id": "846068004782-22bs7bqfj9g5rarhjp0te3jaci5lfg82.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAmgeoW890a_i0O9z7PpWdIK2OZfk33vc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846068004782-22bs7bqfj9g5rarhjp0te3jaci5lfg82.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
