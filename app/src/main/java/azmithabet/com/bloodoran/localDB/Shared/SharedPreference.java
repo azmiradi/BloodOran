@@ -1,15 +1,5 @@
 package azmithabet.com.bloodoran.localDB.Shared;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
-
-
-import azmithabet.com.bloodoran.model.User;
-
-import static android.content.Context.MODE_PRIVATE;
-import static azmithabet.com.bloodoran.util.Const.USERS_NODE;
-
 
 public class SharedPreference {
 

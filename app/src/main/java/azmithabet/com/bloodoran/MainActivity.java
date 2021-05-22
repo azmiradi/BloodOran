@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import azmithabet.com.bloodoran.databinding.ActivityMainBinding;
 import azmithabet.com.bloodoran.databinding.ActivityRegistrationBinding;
+import azmithabet.com.bloodoran.ui.activity.login.LoginActivity;
 import azmithabet.com.bloodoran.ui.activity.registration.RegistrationActivity;
 
 import android.content.Intent;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(RegistrationActivity.class);
                 break;
             case R.id.login:
+                startActivity(LoginActivity.class);
                 break;
         }
     }

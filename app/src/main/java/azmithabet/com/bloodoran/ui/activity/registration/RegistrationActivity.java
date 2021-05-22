@@ -10,7 +10,6 @@ import com.shivtechs.maplocationpicker.MapUtility;
 import com.tiper.MaterialSpinner;
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,10 +17,9 @@ import androidx.databinding.DataBindingUtil;
  import androidx.lifecycle.ViewModelProvider;
 import azmithabet.com.bloodoran.R;
 import azmithabet.com.bloodoran.databinding.ActivityRegistrationBinding;
+import azmithabet.com.bloodoran.model.Coordinates;
 import azmithabet.com.bloodoran.model.Donor;
-import azmithabet.com.bloodoran.model.Location;
 import azmithabet.com.bloodoran.model.Recipients;
-import azmithabet.com.bloodoran.model.User;
 import azmithabet.com.bloodoran.ui.activity.BaseActivity;
 import azmithabet.com.bloodoran.util.Const;
 
@@ -32,7 +30,7 @@ import static azmithabet.com.bloodoran.util.Const.ERROR_PROBLEM;
 public class RegistrationActivity extends BaseActivity {
     private static final int ADDRESS_PICKER_REQUEST = 1;
     private ActivityRegistrationBinding binding;
-    private Location location;
+    private Coordinates coordinates;
     private ArrayAdapter<String> genderAdp,countryAdp,userTypeAdp,bloodTypeAdp,donorTypeAdp;
 
     private Const.USER_TYPE user_type = Const.USER_TYPE.Donor;
@@ -53,7 +51,7 @@ public class RegistrationActivity extends BaseActivity {
     private void initialization() {
         binding.setRegistration(this);
         MapUtility.apiKey = getResources().getString(R.string.maps_key);
-        location = new Location();
+        coordinates = new Coordinates();
         initializationAdps();
         registrationViewModel=new ViewModelProvider(this).get(RegistrationViewModel.class);
         listeningSpinners();
@@ -155,7 +153,8 @@ public class RegistrationActivity extends BaseActivity {
             isComplete = false;
            binding.email.setError(getString(R.string.email_not_correct));
         }
-        if (!isPasswordMatched(getText(binding.password),getText(binding.confirmPass))) {
+        if (!isPasswordMatched(getText(binding.password),
+                getText(binding.confirmPass))) {
             isComplete = false;
             binding.email.setError(getString(R.string.password_not_confirmed));
         }
@@ -171,7 +170,7 @@ public class RegistrationActivity extends BaseActivity {
             isComplete = false;
             setErrorEditError(binding.phoneNumber);
         }
-        if (location.getLat() == 0 && location.getLng() == 0) {
+        if (coordinates.getLat() == 0 && coordinates.getLng() == 0) {
             showToast(R.string.select_location);
             isComplete=false;
         }
@@ -221,9 +220,9 @@ public class RegistrationActivity extends BaseActivity {
                     double longitude = data.getDoubleExtra(MapUtility.LONGITUDE, 0.0);
                     //binding.locationText.setText(address);
 
-                    location.setAddress(address);
-                    location.setLat(latitude);
-                    location.setLng(longitude);
+                    coordinates.setAddress(address);
+                    coordinates.setLat(latitude);
+                    coordinates.setLng(longitude);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -232,25 +231,25 @@ public class RegistrationActivity extends BaseActivity {
     }
 
     public void registration(){
-        User user = null;
-        if (checkFields())
+        Donor donor = null;
+         if (checkFields())
         {
             showProgressDialog("",getString(R.string.loading));
             switch (user_type)
             {
                 case Donor:
-                    user=new Donor(getText(binding.name),getText(binding.email),
-                            getText(binding.password),location,getText(binding.phoneNumber)
+                     donor=new Donor(getText(binding.name),getText(binding.email),
+                            getText(binding.password), coordinates,getText(binding.phoneNumber)
                     ,getText(binding.birthday),sex_type,
                             getText(binding.medicalHistory),user_type,binding.bloodType.getSelectedItem().toString()
                     ,donor_type);
                     break;
                 case Recipients:
-                    user=new Recipients(getText(binding.name),getText(binding.email),
-                            getText(binding.password),location,getText(binding.phoneNumber),user_type,recipients_type);
+                    Recipients  recipients=new Recipients(getText(binding.name),getText(binding.email),
+                            getText(binding.password), coordinates,getText(binding.phoneNumber),user_type,recipients_type);
                     break;
             }
-            registrationViewModel.registration(user)
+            registrationViewModel.registration(donor)
                     .observe(this, processCode -> {
                         hideDialog();
                         switch (processCode)
@@ -268,12 +267,7 @@ public class RegistrationActivity extends BaseActivity {
                     });
         }
     }
-    public boolean isValidEmailAddress(String email) {
-        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-        java.util.regex.Matcher m = p.matcher(email);
-        return m.matches();
-    }
+
     public boolean isPasswordMatched(String pass,String confirmPass)
     {
         return pass.equals(confirmPass);

@@ -72,4 +72,20 @@
 
     <string name="password_not_confirmed">password not Confirmed</string>
     <string name="sign_in">Sign In</string>
+    <string name="welcome">Welcome!</string>
+    <string name="forget_password"><u>Forget your password?</u></string>
+    <string name="recovery_password_mail">"Verification code to reset Blood&amp;Oran password"</string>
+    <string name="email_sent">Email Sent</string>
+    <string name="home">Home</string>
+    <string name="notification">Notification</string>
+    <string name="statics">Statics</string>
+    <string name="profile">Profile</string>
+    <string name="request_origion">Request Origion</string>
+    <string name="request_blood">Request Blood</string>
+    <string name="welcome_select">Select Donor Type</string>
+    <string name="search_donor">Search Donor</string>
+    <string name="search">Search</string>
+    <string name="find_donor">Find Donor</string>
+    <string name="choose_blood_group">Choose blood group</string>
+
 </resources>

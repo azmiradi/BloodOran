@@ -1,8 +1,5 @@
 package azmithabet.com.bloodoran.ui.activity.registration;
 
-import android.net.Uri;
-
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,14 +8,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.scottyab.aescrypt.AESCrypt;
 
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import azmithabet.com.bloodoran.IfUserExisting;
-import azmithabet.com.bloodoran.model.User;
+import azmithabet.com.bloodoran.model.Donor;
 
 import static azmithabet.com.bloodoran.util.Const.DONE_PROCESS;
 import static azmithabet.com.bloodoran.util.Const.EMAIL_EXIST;
@@ -30,18 +24,18 @@ import static azmithabet.com.bloodoran.util.Const.USERS_NODE;
 public class RegistrationRepository {
     private final DatabaseReference databaseReference;
 
-
     public RegistrationRepository() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
       }
 
-    public MutableLiveData<Integer> registration(User user) {
+    public MutableLiveData<Integer> registration(Donor user) {
         MutableLiveData<Integer> isDone=new MutableLiveData<>();
         user.setPassword(encryptPass(user.getPassword()));
         checkEmail(user.getEmail(), processCode -> {
              if (processCode==DONE_PROCESS)
             {
-                 databaseReference.child(USERS_NODE).child(user.getEmail().replace(".", "0"))
+                 databaseReference.child(USERS_NODE)
+                         .child(user.getEmail().replace(".", "0"))
                         .setValue(user)
                         .addOnSuccessListener(
                                 aVoid -> isDone.setValue(DONE_PROCESS))
